@@ -73,7 +73,7 @@ class MetricsCalculator(PortfolioOptimizer):
         return beta
 
     def MAlpha(self):
-        market_return = self.benchmark.mean() * 252
+        market_return = float(self.benchmark.mean()) * 252
         alpha = (self.annual_return) - (
             self.riskFreeRate + self.MBeta() * (market_return - self.riskFreeRate)
         )

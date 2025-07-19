@@ -33,7 +33,7 @@ def main():
     # Using sidebar for inputs
 
     if "stocks" not in st.session_state:
-        st.session_state.stocks_list = ["TCS, CAMS, ITC, INFY"]  # Initialize empty list
+        st.session_state.stocks_list = ["HDFCBANK, BAJAJFINSV, BHARTIARTL, M&M"]  # Initialize empty list
 
     default_tickers_str = ", ".join(st.session_state.stocks_list)
 

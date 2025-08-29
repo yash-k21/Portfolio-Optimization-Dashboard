@@ -47,13 +47,13 @@ def main():
         "Start Date",
         max_value=dt.date.today() - dt.timedelta(days=1),
         min_value=dt.date.today() - dt.timedelta(days=1250),
-        value=dt.date.today() - dt.timedelta(days=365),
+        value=dt.date.today() - dt.timedelta(days=372),
     )
     end_date = end.date_input(
         "End Date",
-        max_value=dt.date.today(),
+        max_value=dt.date.today() - dt.timedelta(days=7),
         min_value=start_date + dt.timedelta(days=1),
-        value=dt.date.today(),
+        value=dt.date.today() - dt.timedelta(days=7),
     )
     col1, col2 = cont1.columns(2)
     optimization_criterion = col1.selectbox(
@@ -211,3 +211,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

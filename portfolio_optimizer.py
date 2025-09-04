@@ -95,22 +95,22 @@ class PortfolioOptimizer:
 
     def trackingError(self, weights):
         dailyIndividualReturns, dailyIndividualStd = self.basicMetrics()
-        portfolioDailyReturns = np.array(np.dot(dailyIndividualReturns.dropna(), weights))
-        benchmarkReturns = np.array(self.benchmark)
+        portfolioDailyReturns = dailyIndividualReturns.dropna().dot(weights)
+        benchmarkReturns = self.benchmark
 
         portfolioDailyReturns, benchmarkReturns = portfolioDailyReturns.align(benchmarkReturns, join="inner")
-        difference_array = portfolioDailyReturns - benchmarkReturns
+        difference_array = portfolioDailyReturns.to_numpy() - benchmarkReturns.to_numpy()
         trackingError = difference_array.std(ddof=1) * np.sqrt(252)
 
         return trackingError
 
     def informationRatio(self, weights):
         dailyIndividualReturns, dailyIndividualStd = self.basicMetrics()
-        portfolioDailyReturns = np.array(np.dot(dailyIndividualReturns.dropna(), weights))
-        benchmarkReturns = np.array(self.benchmark)
+        portfolioDailyReturns = dailyIndividualReturns.dropna().dot(weights)
+        benchmarkReturns = self.benchmark
 
         portfolioDailyReturns, benchmarkReturns = portfolioDailyReturns.align(benchmarkReturns, join="inner")
-        difference_array = portfolioDailyReturns - benchmarkReturns
+        difference_array = portfolioDailyReturns.to_numpy() - benchmarkReturns.to_numpy()
         portfolioPerformance = portfolioDailyReturns.mean() * 252
         benchmarkPerformance = benchmarkReturns.mean() * 252
         trackingError = difference_array.std(ddof=1) * np.sqrt(252)
@@ -362,4 +362,5 @@ class PortfolioOptimizer:
 
 
         return df, matrix
+
 

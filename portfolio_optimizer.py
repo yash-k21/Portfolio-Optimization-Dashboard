@@ -43,6 +43,7 @@ class PortfolioOptimizer:
             raise ValueError("Unable to download data for one or more tickers!")
 
         returns = stockData.pct_change()
+        returns = returns.dropna(how="any")
         stdIndividual = returns.std()
 
         return returns, stdIndividual
@@ -355,5 +356,6 @@ class PortfolioOptimizer:
         matrix = matrix[[""] + [col for col in matrix.columns if col != ""]]
         matrix.columns = [stock.replace(".NS", "") for stock in matrix.columns]
         matrix[""] = [stock.replace(".NS", "") for stock in matrix[""]]
+
 
         return df, matrix

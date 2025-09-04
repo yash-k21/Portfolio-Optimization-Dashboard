@@ -92,9 +92,9 @@ class MetricsCalculator(PortfolioOptimizer):
     def MTrackingError(self):
         portfolioDailyReturns = np.array(self.portfolioReturnsDaily())
         benchmarkReturns = np.array(self.benchmark)
-
+        
         portfolioDailyReturns, benchmarkReturns = portfolioDailyReturns.align(benchmarkReturns, join="inner")
-        difference_array = portfolioDailyReturns - benchmarkReturns
+        difference_array = portfolioDailyReturns.to_numpy() - benchmarkReturns.to_numpy()
         trackingError = difference_array.std(ddof=1) * np.sqrt(252)
 
         return trackingError
@@ -215,4 +215,5 @@ class MetricsCalculator(PortfolioOptimizer):
                 }
         return metric_df
         
+
 

@@ -90,6 +90,9 @@ class MetricsCalculator(PortfolioOptimizer):
     def MTrackingError(self):
         portfolioDailyReturns = self.portfolioReturnsDaily()
         benchmarkReturns = self.benchmark
+
+        if isinstance(benchmarkReturns, np.ndarray):
+            raise TypeError("benchmarkReturns is a numpy array — must be a pandas Series with a DateTime index")
         
         portfolioDailyReturns, benchmarkReturns = portfolioDailyReturns.align(benchmarkReturns, join="inner")
         difference_array = portfolioDailyReturns.to_numpy() - benchmarkReturns.to_numpy()
@@ -213,6 +216,7 @@ class MetricsCalculator(PortfolioOptimizer):
                 }
         return metric_df
         
+
 
 
 

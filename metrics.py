@@ -38,8 +38,6 @@ class MetricsCalculator(PortfolioOptimizer):
         drawdown = cumulative_returns - running_max
         max_drawdown = np.min(drawdown) * 100
 
-        ## Fix this calculation
-
         return max_drawdown
 
     def MBeta(self):
@@ -215,6 +213,7 @@ class MetricsCalculator(PortfolioOptimizer):
                 }
         return metric_df
         
+
 
 
 

@@ -82,8 +82,6 @@ class MetricsCalculator(PortfolioOptimizer):
     def MSharpeRatio(self):
         annual_std = self.MStandardDeviation("annual") / 100
         sharpe = (self.annual_return - self.riskFreeRate) / annual_std
-
-        ## fix sharpe ratio
         return sharpe
 
     def MSortinoRatio(self):
@@ -95,6 +93,7 @@ class MetricsCalculator(PortfolioOptimizer):
         portfolioDailyReturns = np.array(self.portfolioReturnsDaily())
         benchmarkReturns = np.array(self.benchmark)
 
+        portfolioDailyReturns, benchmarkReturns = portfolioDailyReturns.align(benchmarkReturns, join="inner")
         difference_array = portfolioDailyReturns - benchmarkReturns
         trackingError = difference_array.std(ddof=1) * np.sqrt(252)
 
@@ -216,3 +215,4 @@ class MetricsCalculator(PortfolioOptimizer):
                 }
         return metric_df
         
+

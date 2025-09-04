@@ -88,8 +88,8 @@ class MetricsCalculator(PortfolioOptimizer):
         return sortino
 
     def MTrackingError(self):
-        portfolioDailyReturns = pd.Series(self.portfolioReturnsDaily()).squeeze()
-        benchmarkReturns = pd.Series(self.benchmark).squeeze()
+        portfolioDailyReturns = pd.Series(np.asarray(self.portfolioReturnsDaily()).squeeze())
+        benchmarkReturns = pd.Series(np.asarray(self.benchmark).squeeze())
 
         portfolioDailyReturns, benchmarkReturns = portfolioDailyReturns.align(benchmarkReturns, join="inner")
         difference_array = portfolioDailyReturns.to_numpy() - benchmarkReturns.to_numpy()
@@ -99,8 +99,8 @@ class MetricsCalculator(PortfolioOptimizer):
 
     def MInformationRatio(self):
         trackingError = self.MTrackingError()
-        portfolioDailyReturns = pd.Series(self.portfolioReturnsDaily()).squeeze()
-        benchmarkReturns = pd.Series(self.benchmark).squeeze()
+        portfolioDailyReturns = pd.Series(np.asarray(self.portfolioReturnsDaily()).squeeze())
+        benchmarkReturns = pd.Series(np.asarray(self.benchmark).squeeze())
 
         portfolioDailyReturns, benchmarkReturns = portfolioDailyReturns.align(benchmarkReturns, join="inner")
         mean_portfolio = portfolioDailyReturns.to_numpy().mean() * 252
@@ -214,6 +214,7 @@ class MetricsCalculator(PortfolioOptimizer):
                 }
         return metric_df
         
+
 
 
 

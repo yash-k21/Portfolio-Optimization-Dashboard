@@ -90,8 +90,8 @@ class MetricsCalculator(PortfolioOptimizer):
         return sortino
 
     def MTrackingError(self):
-        portfolioDailyReturns = np.array(self.portfolioReturnsDaily())
-        benchmarkReturns = np.array(self.benchmark)
+        portfolioDailyReturns = self.portfolioReturnsDaily()
+        benchmarkReturns = self.benchmark
         
         portfolioDailyReturns, benchmarkReturns = portfolioDailyReturns.align(benchmarkReturns, join="inner")
         difference_array = portfolioDailyReturns.to_numpy() - benchmarkReturns.to_numpy()
@@ -215,5 +215,6 @@ class MetricsCalculator(PortfolioOptimizer):
                 }
         return metric_df
         
+
 
 

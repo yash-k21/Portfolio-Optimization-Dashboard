@@ -91,8 +91,6 @@ class MetricsCalculator(PortfolioOptimizer):
         portfolioDailyReturns = self.portfolioReturnsDaily()
         benchmarkReturns = self.benchmark
 
-        print(type(portfolioDailyReturns))
-        print(type(benchmarkReturns))
         portfolioDailyReturns, benchmarkReturns = portfolioDailyReturns.align(benchmarkReturns, join="inner")
         difference_array = portfolioDailyReturns.to_numpy() - benchmarkReturns.to_numpy()
         trackingError = difference_array.std(ddof=1) * np.sqrt(252)
@@ -101,11 +99,12 @@ class MetricsCalculator(PortfolioOptimizer):
 
     def MInformationRatio(self):
         trackingError = self.MTrackingError()
-        portfolioDailyReturns = np.array(self.portfolioReturnsDaily())
-        benchmarkReturns = np.array(self.benchmark)
+        portfolioDailyReturns = self.portfolioReturnsDaily()
+        benchmarkReturns = self.benchmark
 
-        mean_portfolio = portfolioDailyReturns.mean() * 252
-        mean_benchmark = benchmarkReturns.mean() * 252
+        portfolioDailyReturns, benchmarkReturns = portfolioDailyReturns.align(benchmarkReturns, join="inner")
+        mean_portfolio = portfolioDailyReturns.to_numpy().mean() * 252
+        mean_benchmark = benchmarkReturns.to_numpy().mean() * 252
 
         information_ratio = (mean_portfolio - mean_benchmark) / trackingError
 
@@ -215,6 +214,7 @@ class MetricsCalculator(PortfolioOptimizer):
                 }
         return metric_df
         
+
 
 
 

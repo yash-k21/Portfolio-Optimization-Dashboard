@@ -9,3 +9,4 @@ statsmodels
 matplotlib
 yfinance
 streamlit_shadcn_ui
+altair==4.2.2
